@@ -132,12 +132,16 @@ class _AppScaffoldState extends State<AppScaffold> {
                 value: ThemeMode.light,
                 child: Text(
                   "Light",
-                  style: TextStyle(color: AppColors.black),
+                  style: TextStyle(color: AppColors.white),
                 )),
             DropdownMenuItem(
                 value: ThemeMode.dark,
-                child: Text("Dark", style: TextStyle(color: AppColors.black))),
+                child: Text("Dark", style: TextStyle(color: AppColors.white))),
           ],
+          dropdownColor: AppColors.black,
+          underline: SizedBox(),
+          icon: Icon(Icons.arrow_drop_down, color: AppColors.white,),
+          isExpanded: true,
           onChanged: (newMode) {
             if (newMode == null) return;
             context.themeProvider.changeTheme(newMode);

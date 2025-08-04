@@ -1,11 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:news_c15/ui/providers/theme_provider.dart';
-import 'package:news_c15/ui/screens/home/home.dart';
-import 'package:news_c15/ui/screens/splash/splash.dart';
+import 'package:news_c15/ui/screens/news/news.dart';
 import 'package:news_c15/ui/utils%20/app_theme.dart';
-import 'package:news_c15/ui/utils%20/extensions/build_context_extensions.dart';
 import 'package:provider/provider.dart';
-
+///Json -> Java Script Object Notation
+/// {key(String): value(dynamic)}
+/// Request =>
+/// Types of requests => GET - POST (PATCH - PUT - DELETE )
+/// Link => BaseUrl/EndPoint?QueryParameters
+/// RequestBody => html - json - xml
+/// Headers => Json
+///
+/// Response
+/// Status code -> 20x - 40x - 50x
+/// Response Body => html - json - xml
+/// Headers => json
 void main() {
   runApp(ChangeNotifierProvider(
       create: (_) => ThemeProvider(), child: const MyApp()));
@@ -35,7 +44,7 @@ class _MyAppState extends State<MyApp> {
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
       themeMode: themeProvider.themeMode,
-      home: Home(),
+      home: News(),
     );
   }
 }
