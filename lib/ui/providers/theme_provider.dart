@@ -8,6 +8,8 @@ class ThemeProvider extends ChangeNotifier {
       ? AppAssets.splashLight
       : AppAssets.splashDark;
 
+  bool get isDarkMode => themeMode == ThemeMode.dark;
+
   void changeTheme(ThemeMode newMode) {
     themeMode = newMode;
     notifyListeners();

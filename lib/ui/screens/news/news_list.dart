@@ -9,9 +9,9 @@ import 'package:news_c15/ui/widgets%20/loading_view.dart';
 
 class NewsList extends StatelessWidget {
   final Source source;
-  final ApiManager apiManager = const ApiManager();
+  final ApiManager apiManager =  ApiManager();
 
-  const NewsList({super.key, required this.source});
+  NewsList({super.key, required this.source});
 
   @override
   Widget build(BuildContext context) {

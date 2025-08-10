@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:news_c15/data/api_manager.dart';
 import 'package:news_c15/data/model/source.dart';
+import 'package:news_c15/ui/model/category_dm.dart';
 import 'package:news_c15/ui/screens/news/news_list.dart';
 import 'package:news_c15/ui/utils%20/extensions/build_context_extensions.dart';
 import 'package:news_c15/ui/widgets%20/app_scaffold.dart';
@@ -8,9 +9,10 @@ import 'package:news_c15/ui/widgets%20/error_view.dart';
 import 'package:news_c15/ui/widgets%20/loading_view.dart';
 
 class News extends StatelessWidget {
-  const News({super.key});
+  CategoryDM categoryDM;
+  News({super.key, required this.categoryDM});
 
-  final ApiManager apiManager = const ApiManager();
+  final ApiManager apiManager = ApiManager();
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +21,7 @@ class News extends StatelessWidget {
           children: [
             Expanded(
               child: FutureBuilder(
-                  future: apiManager.loadSources(),
+                  future: apiManager.loadSources(categoryDM.id),
                   builder: (context, snapshot) {
                     if (snapshot.hasError) {
                       var error = snapshot.error;
@@ -34,7 +36,7 @@ class News extends StatelessWidget {
             )
           ],
         ),
-        appBarTitle: "General");
+        appBarTitle: categoryDM.text);
   }
 
   Widget buildTabsList(BuildContext context, List<Source> sources) {
@@ -49,7 +51,7 @@ class News extends StatelessWidget {
               unselectedLabelStyle: context.textTheme.bodySmall,
               tabAlignment: TabAlignment.start,
               indicatorColor: context.secondaryColor,
-              tabs: sources.map((source) => mapSourceToTab(source)).toList()),
+              tabs: sources.map(mapSourceToTab).toList()),
           Expanded(
               child: TabBarView(
                   children: sources

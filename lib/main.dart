@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:news_c15/ui/providers/theme_provider.dart';
+import 'package:news_c15/ui/screens/home/home.dart';
 import 'package:news_c15/ui/screens/news/news.dart';
 import 'package:news_c15/ui/utils%20/app_theme.dart';
 import 'package:provider/provider.dart';
@@ -44,7 +45,7 @@ class _MyAppState extends State<MyApp> {
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
       themeMode: themeProvider.themeMode,
-      home: News(),
+      home: Home(),
     );
   }
 }
