@@ -12,16 +12,15 @@ class News extends StatelessWidget {
   CategoryDM categoryDM;
   News({super.key, required this.categoryDM});
 
-  final ApiManager apiManager = ApiManager();
-
   @override
   Widget build(BuildContext context) {
+
     return AppScaffold(
         body: Column(
           children: [
             Expanded(
               child: FutureBuilder(
-                  future: apiManager.loadSources(categoryDM.id),
+                  future: ApiManager.instance.loadSources(categoryDM.id),
                   builder: (context, snapshot) {
                     if (snapshot.hasError) {
                       var error = snapshot.error;

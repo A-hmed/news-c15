@@ -8,18 +8,31 @@ import 'model/article.dart';
 
 class ApiManager {
   late Dio dio;
-  ApiManager() {
-    dio = Dio(BaseOptions(
-        //queryParameters: {"apiKey": _apiKey,},
-        baseUrl: _baseUrl,
-    //     headers: {
-    //       "X-Api-Key": _apiKey
-    // }
-    )
-    );
-    dio.interceptors.add(PrettyDioLogger(requestHeader: true));
-    dio.interceptors.add(AppInterceptor());
+  // ApiManager() {
+
+  // }
+
+  static ApiManager? _apiManager;
+  ApiManager._(){
+      dio = Dio(BaseOptions(
+          //queryParameters: {"apiKey": _apiKey,},
+          baseUrl: _baseUrl,
+      //     headers: {
+      //       "X-Api-Key": _apiKey
+      // }
+      )
+      );
+      dio.interceptors.add(PrettyDioLogger(requestHeader: true, ));
+      dio.interceptors.add(AppInterceptor());
   }
+
+  static ApiManager get instance{
+    if(_apiManager == null){
+      _apiManager = ApiManager._();
+    }
+    return _apiManager!;
+  }
+
 
 
   final String _baseUrl = "https://newsapi.org/v2";

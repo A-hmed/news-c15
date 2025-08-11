@@ -9,14 +9,12 @@ import 'package:news_c15/ui/widgets%20/loading_view.dart';
 
 class NewsList extends StatelessWidget {
   final Source source;
-  final ApiManager apiManager =  ApiManager();
-
   NewsList({super.key, required this.source});
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: apiManager.loadArticles(source.id ?? ""),
+        future: ApiManager.instance.loadArticles(source.id ?? ""),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
             return ErrorView(message: snapshot.error.toString());
