@@ -49,7 +49,7 @@ class _MyAppState extends State<MyApp> {
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
       themeMode: themeProvider.currentMode,
-      home: News(),
+      home: Home(),
     );
   }
 }

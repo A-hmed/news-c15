@@ -30,13 +30,11 @@ class NewsList extends StatelessWidget {
   }
 
   Widget buildArticlesList(List<Article> articles) {
-    return Expanded(
-      child: ListView.builder(
-        itemCount: articles.length,
-        itemBuilder: (context, index){
-          return ArticleWidget(article: articles[index]);
-        },
-      ),
+    return ListView.builder(
+      itemCount: articles.length,
+      itemBuilder: (context, index){
+        return ArticleWidget(article: articles[index]);
+      },
     );
   }
 }

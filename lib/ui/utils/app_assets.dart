@@ -4,7 +4,7 @@ abstract final class AppAssets {
   static const String entertainmentDark = 'assets/images/entertainment_dark.png';
   static const String entertainmentLight = 'assets/images/entertainment_light.png';
   static const String generalDark = 'assets/images/general_dark.png';
-  static const String generalLight = 'assets/images/general_light.png';
+  static const String generalLight = 'assets/images/genral_light.png';
   static const String healthDark = 'assets/images/health_dark.png';
   static const String healthLight = 'assets/images/health_light.png';
   static const String scienceDark = 'assets/images/science_dark.png';
