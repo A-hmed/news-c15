@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/adapters.dart';
+import 'package:news_c15/data/model/Source.dart';
+import 'package:news_c15/data/utils/hive_adapter/source_adapter.dart';
 import 'package:news_c15/ui/providers/theme_provider.dart';
 import 'package:news_c15/ui/screens/home/home.dart';
 import 'package:news_c15/ui/screens/news/news.dart';
@@ -18,6 +21,8 @@ import 'package:provider/provider.dart';
 /// Response Body => html - json - xml
 /// Headers => json
 void main() {
+  Hive.initFlutter();
+  Hive.registerAdapter(SourceAdapter());
   runApp(ChangeNotifierProvider(
       create: (_) => ThemeProvider(), child: const MyApp()));
 }
