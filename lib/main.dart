@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:news_c15/ui/providers/theme_provider.dart';
 import 'package:news_c15/ui/screens/home/home.dart';
 import 'package:news_c15/ui/screens/news/news.dart';
+import 'package:news_c15/ui/screens/news/news_view_model.dart';
 import 'package:news_c15/ui/utils%20/app_theme.dart';
 import 'package:provider/provider.dart';
 ///Json -> Java Script Object Notation

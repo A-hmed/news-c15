@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:news_c15/data/api_manager.dart';
 import 'package:news_c15/data/model/source.dart';
 import 'package:news_c15/ui/model/category_dm.dart';
 import 'package:news_c15/ui/screens/news/news_list.dart';
@@ -7,35 +6,44 @@ import 'package:news_c15/ui/utils%20/extensions/build_context_extensions.dart';
 import 'package:news_c15/ui/widgets%20/app_scaffold.dart';
 import 'package:news_c15/ui/widgets%20/error_view.dart';
 import 'package:news_c15/ui/widgets%20/loading_view.dart';
+import 'package:provider/provider.dart';
 
-class News extends StatelessWidget {
+import 'news_view_model.dart';
+
+class News extends StatefulWidget {
   CategoryDM categoryDM;
+
   News({super.key, required this.categoryDM});
 
   @override
-  Widget build(BuildContext context) {
+  State<News> createState() => _NewsState();
+}
 
-    return AppScaffold(
-        body: Column(
-          children: [
-            Expanded(
-              child: FutureBuilder(
-                  future: ApiManager.instance.loadSources(categoryDM.id),
-                  builder: (context, snapshot) {
-                    if (snapshot.hasError) {
-                      var error = snapshot.error;
-                      return ErrorView(message: error.toString());
-                    } else if (snapshot.hasData) {
-                      var sources = snapshot.data!;
-                      return buildTabsList(context, sources);
-                    } else {
-                      return Expanded(child: Center(child: LoadingView()));
-                    }
-                  }),
-            )
-          ],
-        ),
-        appBarTitle: categoryDM.text);
+class _NewsState extends State<News> {
+  late NewsViewModel viewModel = NewsViewModel();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    viewModel.loadSources(widget.categoryDM.id);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ChangeNotifierProvider(
+        create: (_) => viewModel,
+        child: AppScaffold(
+            body: Consumer<NewsViewModel>(builder: (context, _, __) {
+              if (viewModel.errorMessage.isNotEmpty) {
+                return ErrorView(message: viewModel.errorMessage);
+              } else if (viewModel.sources.isNotEmpty) {
+                return buildTabsList(context, viewModel.sources);
+              } else {
+                return Center(child: LoadingView());
+              }
+            }),
+            appBarTitle: widget.categoryDM.id));
   }
 
   Widget buildTabsList(BuildContext context, List<Source> sources) {
