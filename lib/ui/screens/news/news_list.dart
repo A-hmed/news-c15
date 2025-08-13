@@ -15,7 +15,7 @@ class NewsList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: ApiManager().getArticles(source.id ?? ""),
+        future: ApiManager.instance.getArticles(source.id ?? ""),
         builder: (context, snapshot){
           if (snapshot.hasError) {
             var error = snapshot.error;

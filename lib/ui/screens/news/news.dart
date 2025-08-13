@@ -19,7 +19,7 @@ class News extends StatelessWidget {
     return AppScaffold(
         title: "General",
         body: FutureBuilder(
-            future: ApiManager().getSources(categoryDM.id),
+            future: ApiManager.instance.getSources(categoryDM.id),
             builder: (context, snapshot) {
               if (snapshot.hasError) {
                 var error = snapshot.error;

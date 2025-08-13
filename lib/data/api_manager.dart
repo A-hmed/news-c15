@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:news_c15/data/model/article.dart';
 import 'package:news_c15/data/model/articles_response.dart';
 import 'package:news_c15/data/model/source.dart';
@@ -9,14 +10,22 @@ class ApiManager {
 
   final String _baseUrl = "https://newsapi.org/v2";
   late Dio dio;
+  static late ApiManager _apiManager;
 
-  ApiManager() {
-    dio = Dio(BaseOptions(
-        baseUrl: _baseUrl,
-    ));
+  ApiManager._(){
+      dio = Dio(BaseOptions(
+          baseUrl: _baseUrl,
+      ));
 
-    dio.interceptors.add(PrettyDioLogger());
-    dio.interceptors.add(AppInterceptor());
+      dio.interceptors.add(PrettyDioLogger());
+      dio.interceptors.add(AppInterceptor());
+  }
+
+  static ApiManager get instance{
+    if(_apiManager == null){
+      _apiManager = ApiManager._();
+    }
+    return _apiManager;
   }
 
   Future<List<Source>> getSources(String category) async {
@@ -58,6 +67,7 @@ class ApiManager {
     }
   }
 }
+
 class AppInterceptor extends Interceptor{
   final String _apiKey = "337dc2b5fe7c467aacde1b358cbe785b";
 
