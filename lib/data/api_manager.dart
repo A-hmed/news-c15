@@ -10,7 +10,7 @@ class ApiManager {
 
   final String _baseUrl = "https://newsapi.org/v2";
   late Dio dio;
-  static late ApiManager _apiManager;
+  static ApiManager? _apiManager;
 
   ApiManager._(){
       dio = Dio(BaseOptions(
@@ -22,10 +22,8 @@ class ApiManager {
   }
 
   static ApiManager get instance{
-    if(_apiManager == null){
-      _apiManager = ApiManager._();
-    }
-    return _apiManager;
+    _apiManager ??= ApiManager._();
+    return _apiManager!;
   }
 
   Future<List<Source>> getSources(String category) async {

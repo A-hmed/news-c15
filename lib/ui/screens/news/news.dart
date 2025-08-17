@@ -1,36 +1,61 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:news_c15/data/api_manager.dart';
 import 'package:news_c15/data/model/source.dart';
+import 'package:news_c15/data/repository/news_repository/data_sources/news_local_data_source.dart';
+import 'package:news_c15/data/repository/news_repository/data_sources/news_remote_data_source.dart';
+import 'package:news_c15/data/repository/news_repository/news_repository.dart';
 import 'package:news_c15/ui/model/category_dm.dart';
+import 'package:news_c15/ui/screens/news/news_viewmodel.dart';
 import 'package:news_c15/ui/utils/extensions.dart';
 import 'package:news_c15/ui/widgets/app_scaffold.dart';
 import 'package:news_c15/ui/widgets/error_view.dart';
 import 'package:news_c15/ui/widgets/loading_view.dart';
+import 'package:provider/provider.dart';
 
 import 'news_list.dart';
 
-class News extends StatelessWidget {
+class News extends StatefulWidget {
   final CategoryDM categoryDM;
 
   const News({super.key, required this.categoryDM});
 
   @override
+  State<News> createState() => _NewsState();
+}
+
+class _NewsState extends State<News> {
+  late NewsViewModel viewModel = NewsViewModel(NewsRepository(
+      NewsRemoteDataSource(ApiManager.instance),
+      NewsLocalDataSource(),
+      Connectivity()));
+
+  @override
+  void initState() {
+    super.initState();
+    viewModel.loadSources(widget.categoryDM.id);
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return AppScaffold(
-        title: "General",
-        body: FutureBuilder(
-            future: ApiManager.instance.getSources(categoryDM.id),
-            builder: (context, snapshot) {
-              if (snapshot.hasError) {
-                var error = snapshot.error;
-                return ErrorView(message: error.toString());
-              } else if (snapshot.hasData) {
-                var sources = snapshot.data!;
-                return buildTabView(context, sources);
-              } else {
-                return LoadingView();
-              }
-            }));
+    return ChangeNotifierProvider(
+        create: (_) => viewModel,
+        child: Builder(builder: (context) {
+          return AppScaffold(
+              title: widget.categoryDM.title,
+              body: Consumer<NewsViewModel>(
+                builder: (context, viewModel, _) {
+                  if (viewModel.error.isNotEmpty) {
+                    return ErrorView(message: viewModel.error);
+                  } else if (viewModel.sources.isNotEmpty) {
+                    var sources = viewModel.sources;
+                    return buildTabView(context, sources);
+                  } else {
+                    return LoadingView();
+                  }
+                },
+              ));
+        }));
   }
 
   Widget buildTabView(BuildContext context, List<Source> sources) {
