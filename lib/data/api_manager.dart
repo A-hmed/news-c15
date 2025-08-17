@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:news_c15/data/model/articles_response.dart';
-import 'package:news_c15/data/model/source.dart';
+import 'package:news_c15/data/model/source_response.dart';
 import 'package:news_c15/data/model/sources_response.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
@@ -25,7 +25,7 @@ class ApiManager {
 
   final String _baseUrl = "https://newsapi.org/v2";
 
-  Future<List<Source>?> loadSources(String category) async {
+  Future<List<SourceResponse>?> loadSources(String category) async {
     try {
       Response response =
           await dio.get("/top-headlines/sources", queryParameters: {

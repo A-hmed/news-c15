@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
-import 'package:news_c15/data/model/Source.dart';
+import 'package:news_c15/data/model/source_response.dart';
 import 'package:news_c15/data/utils/hive_adapter/source_adapter.dart';
+import 'package:news_c15/di/get_it_modules.dart';
 import 'package:news_c15/ui/providers/theme_provider.dart';
 import 'package:news_c15/ui/screens/home/home.dart';
 import 'package:news_c15/ui/screens/news/news.dart';
@@ -23,6 +24,7 @@ import 'package:provider/provider.dart';
 void main() {
   Hive.initFlutter();
   Hive.registerAdapter(SourceAdapter());
+  configureDependcies();
   runApp(ChangeNotifierProvider(
       create: (_) => ThemeProvider(), child: const MyApp()));
 }
@@ -55,3 +57,8 @@ class _MyAppState extends State<MyApp> {
     );
   }
 }
+
+/// Ui-> Widgets - Vm
+/// Data -> Repositories -> Data sources - Api Data Models - Mappers
+/// Domain(Optional) = Business layer = Independent layer -> UseCases - Domain Model - Repositories
+///Widget -> VM(State Holder) -> Usecase -> Repository - Data source(Remote - Local)

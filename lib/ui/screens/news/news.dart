@@ -1,10 +1,6 @@
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
-import 'package:news_c15/data/api_manager.dart';
-import 'package:news_c15/data/model/source.dart';
-import 'package:news_c15/data/repositories/data_sources/news_local_datasource.dart';
-import 'package:news_c15/data/repositories/data_sources/news_remote_datasource.dart';
-import 'package:news_c15/data/repositories/news_repository.dart';
+import 'package:news_c15/di/get_it_modules.dart';
+import 'package:news_c15/domain/model/source.dart';
 import 'package:news_c15/ui/model/category_dm.dart';
 import 'package:news_c15/ui/screens/news/news_list.dart';
 import 'package:news_c15/ui/utils%20/extensions/build_context_extensions.dart';
@@ -25,14 +21,10 @@ class News extends StatefulWidget {
 }
 
 class _NewsState extends State<News> {
-  late NewsViewModel viewModel = NewsViewModel(NewsRepository(
-      NewsRemoteDataSource(ApiManager.instance),
-      NewsLocalDataSource(),
-      Connectivity()));
+  late NewsViewModel viewModel = getIt();
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     viewModel.loadSources(widget.categoryDM.id);
   }

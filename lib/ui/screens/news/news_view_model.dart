@@ -1,25 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:news_c15/data/api_manager.dart';
-import 'package:news_c15/data/model/source.dart';
-import 'package:news_c15/data/repositories/news_repository.dart';
-
+import 'package:news_c15/domain/model/source.dart';
+import 'package:news_c15/domain/usecases/get_sources_usecase.dart';
+///SoliD
 ///State Holder
-class NewsViewModel extends ChangeNotifier{
-  NewsRepository newsRepository;
-  NewsViewModel(this.newsRepository);
+class NewsViewModel extends ChangeNotifier {
+  GetSourcesByCategoryUseCase getSourcesUseCase;
+
+  NewsViewModel(this.getSourcesUseCase);
 
   List<Source> sources = [];
   var isLoading = false;
   var errorMessage = "";
 
-  loadSources(String categoryId) async{
+  loadSources(String categoryId) async {
     try {
       isLoading = true;
       notifyListeners();
-      sources = (await newsRepository.loadSources(categoryId))!;
+      sources = (await getSourcesUseCase.execute(categoryId))!;
       isLoading = false;
       notifyListeners();
-    }catch(e){
+    } catch (e) {
       errorMessage = e.toString();
       notifyListeners();
     }

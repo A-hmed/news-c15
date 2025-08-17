@@ -1,4 +1,4 @@
-import 'Source.dart';
+import 'source_response.dart';
 
 class Article {
   Article({
@@ -12,7 +12,7 @@ class Article {
       this.content,});
 
   Article.fromJson(dynamic json) {
-    source = json['source'] != null ? Source.fromJson(json['source']) : null;
+    source = json['source'] != null ? SourceResponse.fromJson(json['source']) : null;
     author = json['author'];
     title = json['title'];
     description = json['description'];
@@ -21,7 +21,7 @@ class Article {
     publishedAt = json['publishedAt'];
     content = json['content'];
   }
-  Source? source;
+  SourceResponse? source;
   String? author;
   String? title;
   String? description;
