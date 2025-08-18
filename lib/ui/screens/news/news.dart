@@ -1,8 +1,12 @@
+import 'dart:js_interop';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_c15/di/get_it_modules.dart';
 import 'package:news_c15/domain/model/source.dart';
 import 'package:news_c15/ui/model/category_dm.dart';
 import 'package:news_c15/ui/screens/news/news_list.dart';
+import 'package:news_c15/ui/utils%20/app_routes.dart';
 import 'package:news_c15/ui/utils%20/extensions/build_context_extensions.dart';
 import 'package:news_c15/ui/widgets%20/app_scaffold.dart';
 import 'package:news_c15/ui/widgets%20/error_view.dart';
@@ -31,19 +35,19 @@ class _NewsState extends State<News> {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-        create: (_) => viewModel,
-        child: AppScaffold(
-            body: Consumer<NewsViewModel>(builder: (context, _, __) {
-              if (viewModel.errorMessage.isNotEmpty) {
-                return ErrorView(message: viewModel.errorMessage);
-              } else if (viewModel.sources.isNotEmpty) {
-                return buildTabsList(context, viewModel.sources);
+    return AppScaffold(
+        body: BlocBuilder<NewsViewModel, NewsState>(
+            bloc: viewModel,
+            builder: (context, state) {
+              if (state.errorMessage.isNotEmpty) {
+                return ErrorView(message: state.errorMessage);
+              } else if (state.sources.isNotEmpty) {
+                return buildTabsList(context, state.sources);
               } else {
                 return Center(child: LoadingView());
               }
             }),
-            appBarTitle: widget.categoryDM.id));
+        appBarTitle: widget.categoryDM.id);
   }
 
   Widget buildTabsList(BuildContext context, List<Source> sources) {
