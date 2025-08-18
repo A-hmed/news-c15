@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:news_c15/data/api_manager.dart';
 import 'package:news_c15/data/model/article.dart';
-import 'package:news_c15/data/model/source.dart';
+import 'package:news_c15/domain/model/source.dart';
 import 'package:news_c15/ui/widgets/article_widget.dart';
 import 'package:news_c15/ui/widgets/loading_view.dart';
 

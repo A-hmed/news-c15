@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:news_c15/data/api_manager.dart';
-import 'package:news_c15/data/model/source.dart';
-import 'package:news_c15/data/repository/news_repository/news_repository.dart';
+import 'package:news_c15/domain/model/source.dart';
+import 'package:news_c15/domain/usecases/load_articles_by_source.dart';
 
 class NewsViewModel extends ChangeNotifier {
-  NewsRepository repository;
-  NewsViewModel(this.repository);
+  LoadSourcesByCategoryUseCase loadSourcesUseCase;
+  NewsViewModel(this.loadSourcesUseCase);
   var isLoading = false;
   var error = "";
   List<Source> sources = [];
@@ -14,7 +13,7 @@ class NewsViewModel extends ChangeNotifier {
     isLoading = true;
     notifyListeners();
     try {
-      sources = await repository.loadSources(category);
+      sources = await loadSourcesUseCase.execute(category);
       isLoading = false;
       notifyListeners();
     } catch (e) {

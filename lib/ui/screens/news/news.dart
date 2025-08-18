@@ -1,10 +1,17 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:news_c15/data/api_manager.dart';
-import 'package:news_c15/data/model/source.dart';
-import 'package:news_c15/data/repository/news_repository/data_sources/news_local_data_source.dart';
-import 'package:news_c15/data/repository/news_repository/data_sources/news_remote_data_source.dart';
-import 'package:news_c15/data/repository/news_repository/news_repository.dart';
+import 'package:news_c15/data/mappers/source_mapper.dart';
+import 'package:news_c15/data/repository/news_repository/data_sources/local_data_source/news_local_data_source.dart';
+import 'package:news_c15/data/repository/news_repository/data_sources/local_data_source/news_local_data_source_impl.dart';
+import 'package:news_c15/data/repository/news_repository/data_sources/remote_data_source/news_remote_data_source.dart';
+import 'package:news_c15/data/repository/news_repository/data_sources/remote_data_source/news_remote_data_source_impl.dart';
+import 'package:news_c15/data/repository/news_repository/news_repository_impl.dart';
+import 'package:news_c15/data/repository/news_repository/news_repository_impl2.dart';
+import 'package:news_c15/di/configure_dependcies.dart';
+import 'package:news_c15/domain/repositories/news_repository.dart';
+import 'package:news_c15/domain/model/source.dart';
+import 'package:news_c15/domain/usecases/load_articles_by_source.dart';
 import 'package:news_c15/ui/model/category_dm.dart';
 import 'package:news_c15/ui/screens/news/news_viewmodel.dart';
 import 'package:news_c15/ui/utils/extensions.dart';
@@ -25,10 +32,7 @@ class News extends StatefulWidget {
 }
 
 class _NewsState extends State<News> {
-  late NewsViewModel viewModel = NewsViewModel(NewsRepository(
-      NewsRemoteDataSource(ApiManager.instance),
-      NewsLocalDataSource(),
-      Connectivity()));
+  late NewsViewModel viewModel = getIt();
 
   @override
   void initState() {

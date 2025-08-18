@@ -1,14 +1,14 @@
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:news_c15/data/model/source.dart';
+import 'package:news_c15/data/model/source_response.dart';
 
-class SourceAdapter extends TypeAdapter<Source>{
+class SourceAdapter extends TypeAdapter<SourceResponse>{
   @override
-  Source read(BinaryReader reader) {
+  SourceResponse read(BinaryReader reader) {
     var json = reader.readMap();
-    return Source.fromJson(json);
+    return SourceResponse.fromJson(json);
   }
   @override
-  void write(BinaryWriter writer, Source obj) {
+  void write(BinaryWriter writer, SourceResponse obj) {
     writer.writeMap(obj.toJson());
   }
 

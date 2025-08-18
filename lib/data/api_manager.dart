@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:news_c15/data/model/article.dart';
 import 'package:news_c15/data/model/articles_response.dart';
-import 'package:news_c15/data/model/source.dart';
+import 'package:news_c15/data/model/source_response.dart';
 import 'package:news_c15/data/model/sources_response.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
@@ -26,7 +26,7 @@ class ApiManager {
     return _apiManager!;
   }
 
-  Future<List<Source>> getSources(String category) async {
+  Future<List<SourceResponse>> getSources(String category) async {
     try {
       Response serverResponse =
           await dio.get("/top-headlines/sources", queryParameters: {

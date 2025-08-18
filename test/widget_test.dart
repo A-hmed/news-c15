@@ -7,24 +7,24 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:news_c15/data/api_manager.dart';
+import 'package:news_c15/data/model/source_response.dart';
+import 'package:news_c15/data/repository/news_repository/data_sources/remote_data_source/news_remote_data_source.dart';
+import 'package:news_c15/data/repository/news_repository/data_sources/remote_data_source/news_remote_data_source_impl.dart';
+import 'package:news_c15/data/repository/news_repository/news_repository_impl.dart';
+import 'package:news_c15/domain/repositories/news_repository.dart';
 
 import 'package:news_c15/main.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
-
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
-
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
-
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
-  });
+//   NewsRepository x = NewsRepositoryImpl(newsRemoteDataSource: FakeRemoteDataSource(),
+//       newsLocalDataSource: newsLocalDataSource,
+//       connectivity: connectivity,
+//       mapper: mapper);
+// }
+// class FakeRemoteDataSource extends NewsRemoteDataSource {
+//   @override
+//   Future<List<SourceResponse>> loadSources(String category) {
+//     return [];
+//   }
 }
